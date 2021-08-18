@@ -10,8 +10,6 @@ class Contacts extends Database
         $sql = "INSERT INTO `contacts` (`firstname`,`lastname`, `phone`, `city`, `birthday`, `email`, `userid`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
 
-        /* $stmt->execute(["armend", "zekjiri", "234231234121234215", "Oberhausen", "1992-09-12", "armendzekjiri@gmail.com", "33"]);
-        print_r($stmt->errorInfo()); */
         if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $userId])) {
             header("Location: home.php?action=insert&status=1");
         } else {
@@ -28,6 +26,12 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
+    public function mySortedContacts($userId, $sortBy){
+        $sql = "SELECT * FROM `contacts` WHERE `userid`=? ORDER BY $sortBy";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
 
     public function getSingleContact($contactId, $userId)
     {

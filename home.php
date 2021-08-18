@@ -7,10 +7,13 @@ if (!isset($_SESSION['is_logged_in'])) {
 require_once('./classes/Contacts.php');
 $contacts = new Contacts();
 
-$result = $contacts->myContacts($_SESSION['user_id']);
+$sortAvaibility = ['firstname', 'lastname', 'phone', 'email', 'city', 'birthday', 'addedon'];
 
-
-
+if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility)) {
+    $result = $contacts->mySortedContacts($_SESSION['user_id'], $_GET['sort']);
+} else {
+    $result = $contacts->myContacts($_SESSION['user_id']);
+}
 ?>
 
 <div class="home">
@@ -20,13 +23,13 @@ $result = $contacts->myContacts($_SESSION['user_id']);
     <table class="contacts">
         <thead>
             <tr>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Phone</th>
-                <th>City</th>
-                <th>Birthday</th>
-                <th>E-mail</th>
-                <th>Added</th>
+                <th>FirstName <a href="home.php?sort=firstname"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>LastName <a href="home.php?sort=lastname"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>Phone <a href="home.php?sort=phone"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>City <a href="home.php?sort=city"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>Birthday <a href="home.php?sort=birthday"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>E-mail <a href="home.php?sort=email"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th>Added <a href="home.php?sort=addedon"><img height="15px" src="icons/sort_icon.png"></a></th>
                 <th>Actions</th>
             </tr>
         </thead>
