@@ -3,6 +3,6 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$dbname = "addressbook";
+$dbname = "addressbook11";
 $charset = "utf8mb4";
 $opt = [];

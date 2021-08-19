@@ -26,7 +26,8 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
-    public function mySortedContacts($userId, $sortBy){
+    public function mySortedContacts($userId, $sortBy)
+    {
         $sql = "SELECT * FROM `contacts` WHERE `userid`=? ORDER BY $sortBy";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$userId]);
@@ -38,12 +39,21 @@ class Contacts extends Database
         $sql = "SELECT * FROM `contacts` WHERE `id`=?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$contactId]);
-        $result = $stmt->fetchAll()['0'];
 
-        if ($result['userid'] == $userId) {
-            return $result;
+        if ($stmt->rowCount()) {
+            $result = $stmt->fetchAll()['0'];
+
+
+            if ($result > 0 && $result['userid'] == $userId) {
+                return $result;
+            } else {
+                header("HTTP/1.1 401 Unauthorized");
+                echo "You are unathorized for this action";
+                die();
+            }
         } else {
-            header("Location: home.php?action=edit&auth=0");
+            echo "Contact not found";
+            die();
         }
     }
 

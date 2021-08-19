@@ -187,3 +187,21 @@ hr {
     font-size: 1.4rem;
     padding: 5px;
 }
+
+.msg-danger {
+    font-size: 1.2rem;
+    color: red !important;
+}
+
+.msg-success {
+    font-size: 1.2rem;
+    color: green !important;
+}
+
+.btn-install {
+    width: 20%;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    padding: 5px;
+}
