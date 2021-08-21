@@ -205,3 +205,23 @@ hr {
     font-size: 1.4rem;
     padding: 5px;
 }
+
+.alert {
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 15px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.al-success {
+    color: green;
+}
+
+.al-danger {
+    color: rgb(228, 66, 66);
+}

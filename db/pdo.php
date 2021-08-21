@@ -8,7 +8,8 @@ class Database
 
     function __construct()
     {
-        require_once(__ROOT__ . '/db/config.php');
+
+        require(__ROOT__ . '/db/config.php');
         $dsn = "mysql:=$host;dbname=$dbname;charset=$charset";
 
         try {

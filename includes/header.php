@@ -17,7 +17,7 @@ session_start();
 <body>
     <div class="container">
         <nav class="navbar">
-            <h1>AddressBook</h1>
+            <h1><a href="index.php">AddressBook</a></h1>
 
             <? if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) : ?>
                 <ul class="nav-items">
@@ -32,3 +32,32 @@ session_start();
             <? endif; ?>
         </nav>
         <hr>
+         <?php if($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action'])) : ?>  
+        <div class="alert">
+            <?php
+
+            if (isset($_GET['action']) && $_GET['action'] == "add" && $_GET['status'] == 1) {
+                echo "<div class='al-success'>Contact added succsesfully</div>";
+            } elseif (isset($_GET['action']) && $_GET['action'] == "add" && $_GET['status'] == 0) {
+                echo "<div class='al-danger'>Something went wrong, please contact administrator.</div>";
+            } elseif (isset($_GET['action']) && isset($_GET['status']) && $_GET['action'] == "update" && $_GET['status'] == 1) {
+                echo "<div class='al-success'>Contact updated succsesfully</div>";
+            } elseif (isset($_GET['action']) && isset($_GET['status']) && $_GET['action'] == "update" && $_GET['status'] == 0) {
+                echo "<div class='al-danger'>Something went wrong, please contact administrator.</div>";
+            } elseif (isset($_GET['action'])  && $_GET['action'] == "update" && $_GET['auth'] == 0) {
+                echo "<div class='al-danger'>You are not authorized for this action.</div>";
+            } elseif (isset($_GET['action']) && $_GET['action'] == "register" && $_GET['status'] == 1) {
+                echo "<div class='al-success'>You are succsesfully registered.</div>";
+            } elseif (isset($_GET['action']) && $_GET['action'] == "register" && $_GET['status'] == 0) {
+                echo "<div class='al-danger'>Something went wrong, please contact administrator.</div>";
+            } elseif (isset($_GET['action']) && $_GET['action'] == "deleted" && $_GET['status'] == 1) {
+                echo "<div class='al-success'>Contact deleted succsesfully.</div>";
+            } elseif (isset($_GET['action']) && $_GET['action'] == "deleted" && $_GET['status'] == 0) {
+                echo "<div class='al-danger'>Something went wrong, please contact administrator.</div>";
+            } elseif (isset($_GET['action'])  && $_GET['action'] == "deleted" && $_GET['auth'] == 0) {
+                echo "<div class='al-danger'>You are not authorized for this action.</div>";
+            }
+
+            ?>
+         </div>
+        <?php endif; ?>

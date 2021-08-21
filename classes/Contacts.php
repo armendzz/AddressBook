@@ -11,10 +11,10 @@ class Contacts extends Database
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $userId])) {
-            header("Location: home.php?action=insert&status=1");
+            header("Location: home.php?action=add&status=1");
         } else {
 
-            header("Location: add-contact.php?action=insert&status=0");
+            header("Location: add-contact.php?action=add&status=0");
         }
     }
 
@@ -47,9 +47,10 @@ class Contacts extends Database
             if ($result > 0 && $result['userid'] == $userId) {
                 return $result;
             } else {
-                header("HTTP/1.1 401 Unauthorized");
+                /* header("HTTP/1.1 401 Unauthorized");
                 echo "You are unathorized for this action";
-                die();
+                die(); */
+                header("Location: home.php?action=update&auth=0");
             }
         } else {
             echo "Contact not found";
@@ -69,12 +70,12 @@ class Contacts extends Database
             $sql = "UPDATE `contacts` SET firstname=?, lastname=?, phone=?, city=?, birthday=?, email=?  WHERE id=?";
             $stmt = $this->pdo->prepare($sql);
             if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $contactId])) {
-                header("Location: home.php?action=insert&status=1");
+                header("Location: home.php?action=update&status=1");
             } else {
-                header("Location: home.php?action=insert&status=0");
+                header("Location: home.php?action=update&status=0");
             }
         } else {
-            header("Location: home.php?action=edit&auth=0");
+            header("Location: home.php?action=update&auth=0");
         }
     }
 
@@ -95,7 +96,7 @@ class Contacts extends Database
                 header("Location: home.php?action=deleted&status=0");
             }
         } else {
-            header("Location: home.php?action=delete&auth=0");
+            header("Location: home.php?action=deleted&auth=0");
         }
     }
 }
