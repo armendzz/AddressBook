@@ -76,7 +76,7 @@ if (isset($_POST['btn-edit-contact'])) {
                 <?php echo $errors[0]; ?>
             </div>
         </div>
-    <? endif; ?>
+    <?php endif; ?>
 
     <form action="update.php" method="post">
         <input type="hidden" name="contactid" value="<?php echo $person['id']; ?>">

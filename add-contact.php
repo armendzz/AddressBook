@@ -61,7 +61,7 @@ if (isset($_POST['btn-add-contact'])) {
                 <?php echo $errors[0]; ?>
             </div>
         </div>
-    <? endif; ?>
+    <?php endif; ?>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="create-form-group">
             <label for="firstname">First Name</label>
