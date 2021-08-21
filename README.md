@@ -3,6 +3,6 @@ This is a simple addressbook made with PHP, Users can Add/Edit/Delete entries, s
 
 # Installation
 
-git clone https://github.com/armendzz/AddressBook.git  
-edit db/config.php  
+``` git clone https://github.com/armendzz/AddressBook.git```  
+edit file ``` db/config.php ``` 
 open in brwoser http://youhost/AddressBook 
