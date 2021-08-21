@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 * {
     margin: 0;
     padding: 0;
 }
+
 html {
     font-family: 'Open Sans', sans-serif;
 }
+
 .container {
     margin: auto;
     margin-top: 2rem;
@@ -14,23 +17,24 @@ html {
 
 .navbar {
     display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
 }
 
 .nav-items {
     display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
 }
+
 .nav-items li {
-    list-style-type:none;
+    list-style-type: none;
 }
 
 .nav-items a {
@@ -47,12 +51,14 @@ html {
     color: rgb(29, 28, 28);
     border: 1px solid rgb(29, 28, 28);
 }
+
 .nav-item {
     padding: 0.5rem;
 }
 
 .home {
     margin-top: 2rem;
+    margin-bottom: 3rem;
 }
 
 table.contacts {
@@ -63,18 +69,19 @@ table.contacts {
     border-color: #000000;
     border-style: solid;
     color: #000000;
-  }
-  
-  table.contacts td, table.contacts th {
+}
+
+table.contacts td,
+table.contacts th {
     border-width: 1px;
     border-color: #000000;
     border-style: solid;
     padding: 3px;
-  }
-  
-  table.contacts thead {
+}
+
+table.contacts thead {
     background-color: #ffffff;
-  }
+}
 
 .login-form {
     margin: auto;
@@ -133,6 +140,7 @@ table.contacts {
     margin: auto;
     padding: 10px;
 }
+
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -152,13 +160,13 @@ hr {
     display: flex;
     flex-direction: column;
     margin-bottom: 3rem;
-    
+
 }
 
 .create-form-group {
     display: flex;
     flex-direction: column;
-  
+
 }
 
 .create-form-group input {
@@ -234,20 +242,22 @@ hr {
 .welcome span {
     font-weight: bold;
 }
+
 .add-link {
     display: flex;
     justify-content: flex-end;
 }
+
 .add-link a {
     text-decoration: none;
     color: #111;
     border: 2px solid #111;
     padding: 5px;
-} 
+}
 
 .add-link a:hover {
     border: 1px solid #111;
-} 
+}
 
 .title a {
     text-decoration: none;

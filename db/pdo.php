@@ -20,18 +20,6 @@ class Database
         }
     }
 
-    public function read()
-    {
-        $sql = "SELECT * FROM `users`";
-
-        $stmt = $this->pdo->query($sql);
-
-        while ($row = $stmt->fetch()) {
-            print_r($row);
-        }
-    }
-
-
     public function tableExists($table)
     {
             try {

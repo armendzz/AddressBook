@@ -2,21 +2,29 @@
 include('./includes/header.php');
 require_once('./classes/User.php');
 
-if(isset($_SESSION['is_logged_in'])){
-    if($_SESSION['is_logged_in'] === true){
+if (isset($_SESSION['is_logged_in'])) {
+    if ($_SESSION['is_logged_in'] === true) {
         header("Location: home.php");
     }
-} 
+}
 
 $errors = [];
 
 if (isset($_POST['btn-login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
 
     if (isset($username) && !empty($username) && isset($password) && !empty($password)) {
-        $user = new User();
-        $user->login($username, $password);
+        if (strlen($password) > 5) {
+            if (strlen($username) > 3) {
+                $user = new User();
+                $user->login($username, $password);
+            } else {
+                $errors[] = "Username must be at least 4 characters!";
+            }
+        } else {
+            $errors[] = "Password must be at least 6 characters!";
+        }
     } else {
         $errors[] = "All fields are required!";
     }
@@ -34,11 +42,11 @@ if (isset($_POST['btn-login'])) {
         <div class="form">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" minlength="4" name="username" id="username">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" minlength="6" name="password" id="password">
             </div>
             <button class="btn-login" name="btn-login" type="submit">Login</button>
             <hr>

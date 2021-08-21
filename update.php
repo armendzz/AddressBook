@@ -4,6 +4,7 @@ if (!isset($_SESSION['is_logged_in'])) {
     header("Location: login.php");
 }
 require_once('./classes/Contacts.php');
+include('./helpers/functions.php');
 
 if (isset($_GET['id'])) {
     $contact = new Contacts();
@@ -21,21 +22,41 @@ $errors = [];
 
 if (isset($_POST['btn-edit-contact'])) {
 
-    $contactId = $_POST['contactid'];
-    $firstName = $_POST['firstname'];
-    $lastName = $_POST['lastname'];
-    $phone = $_POST['phone'];
-    $city = $_POST['city'];
-    $birthday = $_POST['birthday'];
-    $email = $_POST['email'];
+    $contactId = htmlspecialchars($_POST['contactid']);
+    $firstName = htmlspecialchars($_POST['firstname']);
+    $lastName = htmlspecialchars($_POST['lastname']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $city = htmlspecialchars($_POST['city']);
+    $birthday = htmlspecialchars($_POST['birthday']);
+    $email = htmlspecialchars($_POST['email']);
     $userId = $_SESSION['user_id'];
 
     if (isset($contactId) && !empty($contactId) && isset($firstName) && !empty($firstName) && isset($lastName) && !empty($lastName) && isset($phone) && !empty($phone) && isset($city) && !empty($city) && isset($birthday) && !empty($birthday) && isset($email) && !empty($email)) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $contact = new Contacts();
-            $contact->updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId);
+        if (strlen($firstName) < 255) {
+            if (strlen($lastName) < 255) {
+                if (isDigits($phone)) {
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        if (strlen($city) < 500) {
+                            if (checkIsAValidDate($birthday)) {
+                                $contact = new Contacts();
+                                $contact->updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId);
+                            } else {
+                                $errors[] = "Please give a valid date.";
+                            }
+                        } else {
+                            $errors[] = "City should be max 500 characters.";
+                        }
+                    } else {
+                        $errors[] = "Please give a valid email address";
+                    }
+                } else {
+                    $errors[] = "Please give a valid phone number. (only digits)";
+                }
+            } else {
+                $errors[] = "Last name should be max 255 characters.";
+            }
         } else {
-            $errors[] = "Please give a valid email address";
+            $errors[] = "First name should be max 255 characters.";
         }
     } else {
         $errors[] = "All fields are required!";
@@ -49,7 +70,14 @@ if (isset($_POST['btn-edit-contact'])) {
 
     <h1>EDIT Contact</h1>
     <hr>
-    <?php if (count($errors) > 0) echo $errors[0]; ?>
+    <?php if (count($errors) > 0) : ?>
+        <div class="alert">
+            <div class="al-danger">
+                <?php echo $errors[0]; ?>
+            </div>
+        </div>
+    <? endif; ?>
+
     <form action="update.php" method="post">
         <input type="hidden" name="contactid" value="<?php echo $person['id']; ?>">
         <div class="create-form-group">
@@ -62,7 +90,7 @@ if (isset($_POST['btn-edit-contact'])) {
         </div>
         <div class="create-form-group">
             <label for="phone">Phone</label>
-            <input type="number" name="phone" id="phone" value="<?php echo $person['phone']; ?>" required>
+            <input type="tel" name="phone" id="phone" value="<?php echo $person['phone']; ?>" required>
         </div>
         <div class="create-form-group">
             <label for="city">City</label>
@@ -77,9 +105,9 @@ if (isset($_POST['btn-edit-contact'])) {
             <input type="text" name="email" id="email" value="<?php echo $person['email']; ?>" required>
         </div>
         <div class="btn">
-        <button class="btn-add-contact" name="btn-edit-contact" type="submit">Update Contact</button>
+            <button class="btn-add-contact" name="btn-edit-contact" type="submit">Update Contact</button>
         </div>
-        
+
     </form>
 </div>
 
