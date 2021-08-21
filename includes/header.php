@@ -19,22 +19,22 @@ session_start();
         <nav class="navbar">
             <h1 class="title"><a href="index.php">AddressBook</a></h1>
 
-            <? if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) : ?>
+            <?php if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) : ?>
                 <ul class="nav-items">
                     <li class="nav-item"><a href="home.php">Home</a></li>
                     <li class="nav-item"><a href="logout.php">Logout</a></li>
                 </ul>
-            <? else : ?>
+            <?php else : ?>
                 <ul class="nav-items">
                     <li class="nav-item"><a href="login.php">Login</a></li>
                     <li class="nav-item"><a href="register.php">Register</a></li>
                 </ul>
-            <? endif; ?>
+            <?php endif; ?>
         </nav>
         <hr>
-        <? if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) : ?>
+        <?php if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) : ?>
             <div class="welcome">You are loggedin as: <span class="username"><?php echo $_SESSION['username']; ?></span></div>
-        <? endif; ?>
+        <?php endif; ?>
         <?php if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action'])) : ?>
             <div class="alert">
                 <?php
