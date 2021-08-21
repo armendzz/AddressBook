@@ -61,7 +61,10 @@ if (isset($_POST['btn-add-contact'])) {
             <label for="email">E-mail</label>
             <input type="text" name="email" id="email" required>
         </div>
+        <div class="btn">
         <button class="btn-add-contact" name="btn-add-contact" type="submit">Add Contact</button>
+        </div>
+        
     </form>
 </div>
 

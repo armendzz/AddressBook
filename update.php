@@ -76,7 +76,10 @@ if (isset($_POST['btn-edit-contact'])) {
             <label for="email">E-mail</label>
             <input type="text" name="email" id="email" value="<?php echo $person['email']; ?>" required>
         </div>
+        <div class="btn">
         <button class="btn-add-contact" name="btn-edit-contact" type="submit">Update Contact</button>
+        </div>
+        
     </form>
 </div>
 

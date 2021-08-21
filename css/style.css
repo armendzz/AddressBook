@@ -225,3 +225,48 @@ hr {
 .al-danger {
     color: rgb(228, 66, 66);
 }
+
+.welcome {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.welcome span {
+    font-weight: bold;
+}
+.add-link {
+    display: flex;
+    justify-content: flex-end;
+}
+.add-link a {
+    text-decoration: none;
+    color: #111;
+    border: 2px solid #111;
+    padding: 5px;
+} 
+
+.add-link a:hover {
+    border: 1px solid #111;
+} 
+
+.title a {
+    text-decoration: none;
+    color: #111;
+    font-style: italic;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.actions-button {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    line-height: 2rem;
+}
