@@ -45,7 +45,7 @@ class Database
             id INT(11) AUTO_INCREMENT PRIMARY KEY, 
             username VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            registered DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+            registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
             )",
 
                 "CREATE TABLE IF NOT EXISTS `contacts` (
@@ -57,7 +57,7 @@ class Database
                 birthday DATE NOT NULL,
                 email VARCHAR(300) NOT NULL,
                 userid INT(11) NOT NULL,
-                addedon DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                addedon TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
                 )"
 
             ];
