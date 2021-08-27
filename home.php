@@ -14,10 +14,20 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility)) {
 } else {
     $result = $contacts->myContacts($_SESSION['user_id']);
 }
+
+if (isset($_GET['search'])) {
+    $result = $contacts->searchContacts($_SESSION['user_id'], $_GET['search']);
+}
+
 ?>
 
 <div class="home">
     <div class="add-more">
+    <form action="home.php">
+       <div class="search-box">
+           <input type='text' id="searchb" placeholder="Search by: First Name or Last Name or City etc.." name='search'><button class="btn-search" type="submit">search</button>
+       </div>
+       </form>
         <h2 class="add-link"> <a href="add-contact.php"> + Add Contact</a></h2>
     </div>
     <table class="contacts">

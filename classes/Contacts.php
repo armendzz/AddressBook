@@ -26,6 +26,14 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
+    public function searchContacts($userId, $searchterm)
+    {   
+        $sql = "SELECT * FROM contacts WHERE ((`firstname` LIKE ?) OR (`lastname` LIKE ?) OR (`phone` LIKE ?) OR (`city` LIKE ?) OR (`birthday` LIKE ?) OR (`email` LIKE ?)) AND (`userid`=?)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(["%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", $userId]);
+        return $stmt->fetchAll();
+    }
+
     public function mySortedContacts($userId, $sortBy)
     {
         $sql = "SELECT * FROM `contacts` WHERE `userid`=? ORDER BY $sortBy";
