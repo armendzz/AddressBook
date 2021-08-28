@@ -28,6 +28,14 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
+    public function myContactsWithLimit($userId, $start)
+    {
+        $sql = "SELECT * FROM `contacts` WHERE `userid`=? LIMIT $start, 5";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
+
     // Method to get contacts with given search term that belongs to one user
     public function searchContacts($userId, $searchterm)
     {   
@@ -37,9 +45,33 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
+    public function searchContactsWithLimit($userId, $searchterm, $start)
+    {   
+        $sql = "SELECT * FROM contacts WHERE ((`firstname` LIKE ?) OR (`lastname` LIKE ?) OR (`phone` LIKE ?) OR (`city` LIKE ?) OR (`birthday` LIKE ?) OR (`email` LIKE ?)) AND (`userid`=?) LIMIT $start, 5";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(["%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", $userId]);
+        return $stmt->fetchAll();
+    }
+
+    public function searchContactsWithLimitAndSort($userId, $searchterm, $sortBy ,$start)
+    {   
+        $sql = "SELECT * FROM contacts WHERE ((`firstname` LIKE ?) OR (`lastname` LIKE ?) OR (`phone` LIKE ?) OR (`city` LIKE ?) OR (`birthday` LIKE ?) OR (`email` LIKE ?)) AND (`userid`=?) ORDER BY $sortBy LIMIT $start, 5";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(["%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", "%$searchterm%", $userId]);
+        return $stmt->fetchAll();
+    }
+
     public function mySortedContacts($userId, $sortBy)
     {
         $sql = "SELECT * FROM `contacts` WHERE `userid`=? ORDER BY $sortBy";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
+
+    public function mySortedContactsWithLimit($userId, $sortBy, $start)
+    {
+        $sql = "SELECT * FROM `contacts` WHERE `userid`=? ORDER BY $sortBy LIMIT $start, 5";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$userId]);
         return $stmt->fetchAll();
