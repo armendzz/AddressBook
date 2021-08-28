@@ -1,6 +1,9 @@
 # AddressBook
 This is a simple addressbook made with PHP, Users can Add/Edit/Delete entries, sorting by Firstname, Lastname, City, Phone, Birthday etc.  
 
+Watch live Demo: https://addressbook.iarmend.de   
+
+
 # Installation
 
 ``` git clone https://github.com/armendzz/AddressBook.git```  
@@ -18,3 +21,9 @@ Install Dependecies:
 
 Generate fake data:
 ``` php test/generatefakedata.php```
+
+
+# TODO
+
+1. add Filter for birthday or added-on range
+2. add Pagination   
