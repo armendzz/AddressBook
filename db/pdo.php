@@ -70,6 +70,11 @@ class Database
         }
     }
 
+    public function rawQuery($query){
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+    }
+
     public function __destruct()
     {
         $this->pdo = null;
