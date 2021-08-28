@@ -2,6 +2,9 @@
 This is a simple addressbook made with PHP, Users can Add/Edit/Delete entries, sorting by Firstname, Lastname, City, Phone, Birthday etc.  
 
 Watch live Demo: https://addressbook.iarmend.de   
+   
+Username: ```demo```   
+Password: ```123456```   
 
 
 # Installation
