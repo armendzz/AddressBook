@@ -5,6 +5,7 @@ class Contacts extends Database
 {
     public $errors = [];
 
+    // Method to add contact
     public function addContact($firstName, $lastName, $phone, $city, $birthday, $email, $userId)
     {
         $sql = "INSERT INTO `contacts` (`firstname`,`lastname`, `phone`, `city`, `birthday`, `email`, `userid`) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -18,6 +19,7 @@ class Contacts extends Database
         }
     }
 
+    // Method to get all contact that belongs to one user
     public function myContacts($userId)
     {
         $sql = "SELECT * FROM `contacts` WHERE `userid`=?";
@@ -26,6 +28,7 @@ class Contacts extends Database
         return $stmt->fetchAll();
     }
 
+    // Method to get contacts with given search term that belongs to one user
     public function searchContacts($userId, $searchterm)
     {   
         $sql = "SELECT * FROM contacts WHERE ((`firstname` LIKE ?) OR (`lastname` LIKE ?) OR (`phone` LIKE ?) OR (`city` LIKE ?) OR (`birthday` LIKE ?) OR (`email` LIKE ?)) AND (`userid`=?)";

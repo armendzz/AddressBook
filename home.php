@@ -1,6 +1,7 @@
 <?php
 include('./includes/header.php');
 
+// check if user is logged in
 if (!isset($_SESSION['is_logged_in'])) {
     header("Location: login.php");
 }
@@ -16,7 +17,7 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility)) {
 }
 
 if (isset($_GET['search'])) {
-    $result = $contacts->searchContacts($_SESSION['user_id'], $_GET['search']);
+    $result = $contacts->searchContacts($_SESSION['user_id'], htmlspecialchars($_GET['search']));
 }
 
 ?>
