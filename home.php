@@ -10,38 +10,81 @@ $contacts = new Contacts();
 
 $sortAvaibility = ['firstname', 'lastname', 'phone', 'email', 'city', 'birthday', 'addedon'];
 
+/* 
+    check if user clicked on sort without searched anything
+*/
 if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($_GET['search'])) {
+/* 
+    Get all contacts that belongs to logged in user
+    sorted by clicked parameter
+    and calculate pagination 
+*/
     $allContacts = $contacts->mySortedContacts($_SESSION['user_id'], $_GET['sort']);
     $pagination = ceil(count($allContacts)/5);
     $pagenr = $_GET['page'];
     $start = $_GET['page'] * 5 - 5;
+/*
+    Get 5 contacts per page for logged in user, sorted by clicked parameter. 
+*/
     $result = $contacts->mySortedContactsWithLimit($_SESSION['user_id'], $_GET['sort'], $start);
+
+/* 
+    check if user searched something and have not clicked on sort
+*/
 } elseif (isset($_GET['search']) && !isset($_GET['sort'])) {
+
+    // send user to page 1, after user clicked on search button
     if(!isset($_GET['page'])){
         header('Location: home.php?search='.$_GET['search'].'&page=1');
     }
+
+/*
+    Get all contacts with given search term
+    and calculate pagination
+*/
     $allContacts = $contacts->searchContacts($_SESSION['user_id'], htmlspecialchars($_GET['search']));
     $pagination = ceil(count($allContacts)/5);
     
     $pagenr = $_GET['page'];
     $start = $_GET['page'] * 5 - 5;
+/*    
+    Get 5 contacts per page for logged in user, for given search term. 
+*/
     $result = $contacts->searchContactsWithLimit($_SESSION['user_id'], htmlspecialchars($_GET['search']), $start);
+
+/*
+    check if user clicked on sort, on searched result
+*/
 } elseif (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && isset($_GET['search'])){
-    
+/*
+    Get all contacts for logged in user with given search term
+    and order by clicked sort parameter
+    and calculate pagination
+*/    
     $allContacts = $contacts->searchContacts($_SESSION['user_id'], htmlspecialchars($_GET['search']));
     $pagination = ceil(count($allContacts)/5);
     $pagenr = $_GET['page'];
     $start = $_GET['page'] * 5 - 5;
+
+    // Get  contacts per page for logged in user for given search term and order by clicked parameter 
     $result = $contacts->searchContactsWithLimitAndSort($_SESSION['user_id'], htmlspecialchars($_GET['search']), $_GET['sort'], $start);
 } else {
+
+/*
+    Get all contacts for logged in user
+    and calculate paginations
+*/    
     $allContacts = $contacts->myContacts($_SESSION['user_id']);
     $pagination = ceil(count($allContacts)/5);
-    if(isset($_GET['page'])){
+    // check if user is on first page, then get contacts from 0
+    if(!isset($_GET['page'])){
+        $result = $contacts->myContactsWithLimit($_SESSION['user_id'], '0');
+    } 
+    else {
+    // Get 5 contacts per page for logged in user 
         $pagenr = $_GET['page'];
         $start = $_GET['page'] * 5 - 5;
         $result = $contacts->myContactsWithLimit($_SESSION['user_id'], $start);
-    } else {
-        $result = $contacts->myContactsWithLimit($_SESSION['user_id'], '0');
     }
 }
 
@@ -57,36 +100,37 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
        </form>
         <h2 class="add-link"> <a href="add-contact.php"> + Add Contact</a></h2>
     </div>
+    <?php if(count($result) > 0): ?>
     <table class="contacts">
         <thead>
             <tr>
-                <th>FirstName <a href="home.php?sort=firstname<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; } ?>"><img height="15px" src="icons/sort_icon.png"></a></th>  
-                <th>LastName <a href="home.php?sort=lastname<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>Phone <a href="home.php?sort=phone<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>City <a href="home.php?sort=city<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>Birthday <a href="home.php?sort=birthday<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>E-mail <a href="home.php?sort=email<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>Added on <a href="home.php?sort=addedon<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
-                <th>Actions</th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'firstname'){ echo 'th-title-active'; } ?>">FirstName</span><a href="home.php?sort=firstname<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; } ?>"><img height="15px" src="icons/sort_icon.png"></a></th>  
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'lastname'){ echo 'th-title-active'; } ?>">LastName</span><a href="home.php?sort=lastname<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'phone'){ echo 'th-title-active'; } ?>">Phone</span><a href="home.php?sort=phone<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'city'){ echo 'th-title-active'; } ?>">City</span><a href="home.php?sort=city<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'birthday'){ echo 'th-title-active'; } ?>">Birthday</span><a href="home.php?sort=birthday<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'email'){ echo 'th-title-active'; } ?>">E-mail</span><a href="home.php?sort=email<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title <?php if(isset($_GET['sort']) && $_GET['sort'] == 'addedon'){ echo 'th-title-active'; } ?>">Added on</span><a href="home.php?sort=addedon<?php if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } if(!isset($_GET['page'])){ echo '&page=1';} else { echo '&page='.$_GET['page']; }  ?>"><img height="15px" src="icons/sort_icon.png"></a></th>
+                <th><span class="th-title">Action</span></th>
             </tr>
         </thead>
         <?php
-
-        foreach ($result as $person) { ?>
+        // list records on table
+        foreach ($result as $contact) { ?>
             <tbody>
                 <tr>
-                    <td><span class="info"><?php echo $person['firstname'] ?></span></td>
-                    <td><span class="info"><?php echo $person['lastname'] ?></span></td>
-                    <td><span class="info"><?php echo $person['phone'] ?></span></td>
-                    <td><span class="info"><?php echo $person['city'] ?></span></td>
-                    <td><span class="info"><?php echo date("d-m-Y", strtotime($person['birthday'])); ?></span></td>
-                    <td><span class="info"><?php echo $person['email'] ?></span></td>
-                    <td><span class="info"><?php echo date("d-m-Y", strtotime($person['addedon'])); ?></span></td>
+                    <td><span class="info"><?php echo $contact['firstname'] ?></span></td>
+                    <td><span class="info"><?php echo $contact['lastname'] ?></span></td>
+                    <td><span class="info"><?php echo $contact['phone'] ?></span></td>
+                    <td><span class="info"><?php echo $contact['city'] ?></span></td>
+                    <td><span class="info"><?php echo date("d-m-Y", strtotime($contact['birthday'])); ?></span></td>
+                    <td><span class="info"><?php echo $contact['email'] ?></span></td>
+                    <td><span class="info"><?php echo date("d-m-Y", strtotime($contact['addedon'])); ?></span></td>
                     <td>
                         <div class="actions-button">
-                            <a href="update.php?id=<?php echo $person['id']; ?>"> <button class="btn-delete-contact" name="btn-delete-contact">EDIT</button> </a>
+                            <a href="update.php?id=<?php echo $contact['id']; ?>"> <button class="btn-delete-contact" name="btn-delete-contact">EDIT</button> </a>
                             <form action="delete.php" method="post">
-                                <input type="hidden" name="contactid" value="<?php echo $person['id'] ?>">
+                                <input type="hidden" name="contactid" value="<?php echo $contact['id'] ?>">
                                 <button class="btn-delete-contact" name="btn-delete-contact">Delete</button>
                             </form>
                         </div>
@@ -109,6 +153,22 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
                 <a href="<?php if($_GET['page'] >= $pagination){ echo 'home.php?page=' . $pagination; } else { $nextpage = $_GET['page'] + 1;  echo "home.php?page=$nextpage"; } if(isset($_GET['sort'])){ echo '&sort=' . $_GET['sort']; } if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } ?>">Next >></a>
                 <a href="<?php if(isset($_GET['sort'])) { echo 'home.php?sort=' . $_GET['sort'] . '&page=' . $pagination;} else { echo 'home.php?page='. $pagination; } if(isset($_GET['search'])){ echo '&search=' . $_GET['search']; } ?>">Last</a>
             </div>
+
+    <?php else : ?>
+
+        <?php if(isset($_GET['search'])) : ?>
+            <div class="no-result">
+            No result for searched term: <strong><?php echo $_GET['search']; ?> </strong> <br><br> 
+            Click <a href="add-contact.php">HERE</a> to add contacs.
+        </div>
+        <?php else : ?>
+
+        <div class="no-result">
+            You dont have any contats <br> <br>
+            Click <a href="add-contact.php">HERE</a> to add contacs.
+        </div>
+        <?php endif; ?>
+    <?php endif; ?>
 </div>
 
 

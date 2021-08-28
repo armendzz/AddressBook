@@ -345,3 +345,18 @@ hr {
 .pagi-item a {
     margin: auto;
 }
+
+.th-title {
+    color:rgb(77, 77, 77);
+}
+
+.th-title-active {
+    color: black;
+}
+
+.no-result {
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid rgb(77, 77, 77);
+    padding: 10px;
+}
