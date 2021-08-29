@@ -17,4 +17,5 @@ $count = '60';
 $contact->addContact($faker->firstName, $faker->lastName, $faker->numberBetween($min = 491760000000, $max = 956248531858), $faker->city, $faker->date($format = 'Y-m-d', $max = 'now'), $faker->freeEmail, $userid);
 } 
 
+
 ?>

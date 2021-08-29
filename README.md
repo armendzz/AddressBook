@@ -30,3 +30,6 @@ Generate fake data:
 
 1. add Filter for birthday or added-on range
 2. add Pagination   
+3. user can choose how much contacts to see on page  
+4. add avatar
+5. create singe page for every contacts and add a optional NOTES text

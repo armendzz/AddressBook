@@ -20,11 +20,11 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
     and calculate pagination 
 */
     $allContacts = $contacts->mySortedContacts($_SESSION['user_id'], $_GET['sort']);
-    $pagination = ceil(count($allContacts)/5);
+    $pagination = ceil(count($allContacts)/10);
     $pagenr = $_GET['page'];
-    $start = $_GET['page'] * 5 - 5;
+    $start = $_GET['page'] * 10 - 10;
 /*
-    Get 5 contacts per page for logged in user, sorted by clicked parameter. 
+    Get 10 contacts per page for logged in user, sorted by clicked parameter. 
 */
     $result = $contacts->mySortedContactsWithLimit($_SESSION['user_id'], $_GET['sort'], $start);
 
@@ -43,12 +43,12 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
     and calculate pagination
 */
     $allContacts = $contacts->searchContacts($_SESSION['user_id'], htmlspecialchars($_GET['search']));
-    $pagination = ceil(count($allContacts)/5);
+    $pagination = ceil(count($allContacts)/10);
     
     $pagenr = $_GET['page'];
-    $start = $_GET['page'] * 5 - 5;
+    $start = $_GET['page'] * 10 - 10;
 /*    
-    Get 5 contacts per page for logged in user, for given search term. 
+    Get 10 contacts per page for logged in user, for given search term. 
 */
     $result = $contacts->searchContactsWithLimit($_SESSION['user_id'], htmlspecialchars($_GET['search']), $start);
 
@@ -62,11 +62,11 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
     and calculate pagination
 */    
     $allContacts = $contacts->searchContacts($_SESSION['user_id'], htmlspecialchars($_GET['search']));
-    $pagination = ceil(count($allContacts)/5);
+    $pagination = ceil(count($allContacts)/10);
     $pagenr = $_GET['page'];
-    $start = $_GET['page'] * 5 - 5;
+    $start = $_GET['page'] * 10 - 10;
 
-    // Get  contacts per page for logged in user for given search term and order by clicked parameter 
+    // Get 10 contacts per page for logged in user for given search term and order by clicked parameter 
     $result = $contacts->searchContactsWithLimitAndSort($_SESSION['user_id'], htmlspecialchars($_GET['search']), $_GET['sort'], $start);
 } else {
 
@@ -75,15 +75,15 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
     and calculate paginations
 */    
     $allContacts = $contacts->myContacts($_SESSION['user_id']);
-    $pagination = ceil(count($allContacts)/5);
+    $pagination = ceil(count($allContacts)/10);
     // check if user is on first page, then get contacts from 0
     if(!isset($_GET['page'])){
         $result = $contacts->myContactsWithLimit($_SESSION['user_id'], '0');
     } 
     else {
-    // Get 5 contacts per page for logged in user 
+    // Get 10 contacts per page for logged in user 
         $pagenr = $_GET['page'];
-        $start = $_GET['page'] * 5 - 5;
+        $start = $_GET['page'] * 10 - 10;
         $result = $contacts->myContactsWithLimit($_SESSION['user_id'], $start);
     }
 }

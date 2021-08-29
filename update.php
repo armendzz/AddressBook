@@ -89,7 +89,7 @@ if (isset($_POST['btn-edit-contact'])) {
             <input type="text" name="lastname" id="lastname" value="<?php echo $person['lastname']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="phone">Phone</label>
+            <label for="phone">Phone (only numbers)</label>
             <input type="tel" name="phone" id="phone" value="<?php echo $person['phone']; ?>" required>
         </div>
         <div class="create-form-group">
