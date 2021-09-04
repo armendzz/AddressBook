@@ -128,6 +128,7 @@ if (isset($_GET['sort']) && in_array($_GET['sort'], $sortAvaibility) && !isset($
                     <td><span class="info"><?php echo date("d-m-Y", strtotime($contact['addedon'])); ?></span></td>
                     <td>
                         <div class="actions-button">
+                        <a href="view.php?id=<?php echo $contact['id']; ?>"> <button class="btn-delete-contact" name="btn-delete-contact">View</button> </a>
                             <a href="update.php?id=<?php echo $contact['id']; ?>"> <button class="btn-delete-contact" name="btn-delete-contact">EDIT</button> </a>
                             <form action="delete.php" method="post">
                                 <input type="hidden" name="contactid" value="<?php echo $contact['id'] ?>">

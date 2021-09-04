@@ -6,17 +6,19 @@ class Contacts extends Database
     public $errors = [];
 
     // Method to add contact
-    public function addContact($firstName, $lastName, $phone, $city, $birthday, $email, $userId)
+    public function addContact($firstName, $lastName, $phone, $city, $birthday, $email, $notes, $userId)
     {
-        $sql = "INSERT INTO `contacts` (`firstname`,`lastname`, `phone`, `city`, `birthday`, `email`, `userid`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `contacts` (`firstname`,`lastname`, `phone`, `city`, `birthday`, `email`, `notes`, `userid`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
 
-        if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $userId])) {
+        if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $notes, $userId])) {
             header("Location: home.php?action=add&status=1");
         } else {
 
             header("Location: add-contact.php?action=add&status=0");
         }
+        
+   
     }
 
     // Method to get all contact that belongs to one user
@@ -101,7 +103,7 @@ class Contacts extends Database
         }
     }
 
-    public function updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId)
+    public function updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId, $notes)
     {
         $sql = "SELECT * FROM `contacts` WHERE `id`=?";
         $stmt = $this->pdo->prepare($sql);
@@ -110,9 +112,9 @@ class Contacts extends Database
 
 
         if ($result['userid'] == $userId) {
-            $sql = "UPDATE `contacts` SET firstname=?, lastname=?, phone=?, city=?, birthday=?, email=?  WHERE id=?";
+            $sql = "UPDATE `contacts` SET firstname=?, lastname=?, phone=?, city=?, birthday=?, email=?, notes=? WHERE id=?";
             $stmt = $this->pdo->prepare($sql);
-            if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $contactId])) {
+            if ($stmt->execute([$firstName, $lastName, $phone, $city, $birthday, $email, $notes, $contactId])) {
                 header("Location: home.php?action=update&status=1");
             } else {
                 header("Location: home.php?action=update&status=0");

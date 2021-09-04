@@ -29,6 +29,7 @@ if (isset($_POST['btn-edit-contact'])) {
     $city = htmlspecialchars($_POST['city']);
     $birthday = htmlspecialchars($_POST['birthday']);
     $email = htmlspecialchars($_POST['email']);
+    $notes = htmlspecialchars($_POST['notes']);
     $userId = $_SESSION['user_id'];
 
     if (isset($contactId) && !empty($contactId) && isset($firstName) && !empty($firstName) && isset($lastName) && !empty($lastName) && isset($phone) && !empty($phone) && isset($city) && !empty($city) && isset($birthday) && !empty($birthday) && isset($email) && !empty($email)) {
@@ -38,8 +39,8 @@ if (isset($_POST['btn-edit-contact'])) {
                     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         if (strlen($city) < 500) {
                             if (checkIsAValidDate($birthday)) {
-                                $contact = new Contacts();
-                                $contact->updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId);
+                                $contact->updateContact($firstName, $lastName, $phone, $city, $birthday, $email, $contactId, $userId, $notes);
+                                
                             } else {
                                 $errors[] = "Please give a valid date.";
                             }
@@ -79,6 +80,7 @@ if (isset($_POST['btn-edit-contact'])) {
     <?php endif; ?>
 
     <form action="update.php" method="post">
+    <p><center>Fileds with * are required.</center></p>
         <input type="hidden" name="contactid" value="<?php echo $person['id']; ?>">
         <div class="create-form-group">
             <label for="firstname">First Name</label>
@@ -103,6 +105,10 @@ if (isset($_POST['btn-edit-contact'])) {
         <div class="create-form-group">
             <label for="email">E-mail</label>
             <input type="text" name="email" id="email" value="<?php echo $person['email']; ?>" required>
+        </div>
+        <div class="create-form-group">
+            <label for="notes">Notes</label>
+            <textarea name="notes" id="notes" cols="30" rows="10"><?php echo $person['notes']; ?></textarea>
         </div>
         <div class="btn">
             <button class="btn-add-contact" name="btn-edit-contact" type="submit">Update Contact</button>
