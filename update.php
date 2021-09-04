@@ -83,27 +83,27 @@ if (isset($_POST['btn-edit-contact'])) {
     <p><center>Fileds with * are required.</center></p>
         <input type="hidden" name="contactid" value="<?php echo $person['id']; ?>">
         <div class="create-form-group">
-            <label for="firstname">First Name</label>
+            <label for="firstname">First Name*</label>
             <input type="text" name="firstname" id="firstname" value="<?php echo $person['firstname']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="lastname">Last Name</label>
+            <label for="lastname">Last Name*</label>
             <input type="text" name="lastname" id="lastname" value="<?php echo $person['lastname']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="phone">Phone (only numbers)</label>
+            <label for="phone">Phone (only numbers)*</label>
             <input type="tel" name="phone" id="phone" value="<?php echo $person['phone']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="city">City</label>
+            <label for="city">City*</label>
             <input type="text" name="city" id="city" value="<?php echo $person['city']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="birthday">Birthday</label>
+            <label for="birthday">Birthday*</label>
             <input type="date" name="birthday" id="birthday" value="<?php echo $person['birthday']; ?>" required>
         </div>
         <div class="create-form-group">
-            <label for="email">E-mail</label>
+            <label for="email">E-mail*</label>
             <input type="text" name="email" id="email" value="<?php echo $person['email']; ?>" required>
         </div>
         <div class="create-form-group">
