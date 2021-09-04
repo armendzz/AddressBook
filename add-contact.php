@@ -28,7 +28,7 @@ if (isset($_POST['btn-add-contact'])) {
                         if (strlen($city) < 500) {
                             if (checkIsAValidDate($birthday)) {
                                 $contact = new Contacts();
-                                $contact->addContact($firstName, $lastName, $phone, $city, $birthday, $email, $notes, $userId,);
+                                $contact->addContact($firstName, $lastName, $phone, $city, $birthday, $email, $notes, $userId);
                             } else {
                                 $errors[] = "Please give a valid date.";
                             }
