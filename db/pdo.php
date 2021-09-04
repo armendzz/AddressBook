@@ -57,7 +57,8 @@ class Database
                 birthday DATE NOT NULL,
                 email VARCHAR(300) NOT NULL,
                 userid INT(11) NOT NULL,
-                addedon TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                addedon TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                notes TEXT NULL
                 )"
 
             ];
